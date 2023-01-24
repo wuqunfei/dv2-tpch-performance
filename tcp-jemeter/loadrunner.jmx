@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.5">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="gv_sqldir" elementType="Argument">
+            <stringProp name="Argument.name">gv_sqldir</stringProp>
+            <stringProp name="Argument.value">${__P(sqldir,)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="gv_c" elementType="Argument">
+            <stringProp name="Argument.name">gv_c</stringProp>
+            <stringProp name="Argument.value">${__P(c,)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="gv_u" elementType="Argument">
+            <stringProp name="Argument.name">gv_u</stringProp>
+            <stringProp name="Argument.value">${__P(u,)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="gv_p" elementType="Argument">
+            <stringProp name="Argument.name">gv_p</stringProp>
+            <stringProp name="Argument.value">${__P(p,)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="gv_threads" elementType="Argument">
+            <stringProp name="Argument.name">gv_threads</stringProp>
+            <stringProp name="Argument.value">${__P(threads,1)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="gv_loops" elementType="Argument">
+            <stringProp name="Argument.name">gv_loops</stringProp>
+            <stringProp name="Argument.value">${__P(loops,1)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="gv_random" elementType="Argument">
+            <stringProp name="Argument.name">gv_random</stringProp>
+            <stringProp name="Argument.value">${__P(random,True)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="gv_seed" elementType="Argument">
+            <stringProp name="Argument.name">gv_seed</stringProp>
+            <stringProp name="Argument.value">${__P(seed,1)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="gv_jdbcdriver" elementType="Argument">
+            <stringProp name="Argument.name">gv_jdbcdriver</stringProp>
+            <stringProp name="Argument.value">${__P(jdbcdriver,)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="gv_initsqlstatement" elementType="Argument">
+            <stringProp name="Argument.name">gv_initsqlstatement</stringProp>
+            <stringProp name="Argument.value">${__P(initsqlstatement,)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="gv_autocommit" elementType="Argument">
+            <stringProp name="Argument.name">gv_autocommit</stringProp>
+            <stringProp name="Argument.value">${__P(autocommit,True)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="gv_testwhileidle" elementType="Argument">
+            <stringProp name="Argument.name">gv_testwhileidle</stringProp>
+            <stringProp name="Argument.value">${__P(testwhileidle,True)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="gv_fullrun" elementType="Argument">
+            <stringProp name="Argument.name">gv_fullrun</stringProp>
+            <stringProp name="Argument.value">${__P(fullrun,True)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="gv_debug" elementType="Argument">
+            <stringProp name="Argument.name">gv_debug</stringProp>
+            <stringProp name="Argument.value">${__P(debug,False)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="gv_testid" elementType="Argument">
+            <stringProp name="Argument.name">gv_testid</stringProp>
+            <stringProp name="Argument.value">${__P(START.YMD)}${__P(START.HMS)}_${__P(TESTSTART.MS)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <JDBCDataSource guiclass="TestBeanGUI" testclass="JDBCDataSource" testname="JDBC Connection Configuration" enabled="true">
+        <stringProp name="autocommit">${gv_autocommit}</stringProp>
+        <stringProp name="checkQuery"></stringProp>
+        <stringProp name="connectionAge">5000</stringProp>
+        <stringProp name="dataSource">connectionpool</stringProp>
+        <stringProp name="dbUrl">${__evalVar(gv_c)}</stringProp>
+        <stringProp name="driver">${gv_jdbcdriver}</stringProp>
+        <stringProp name="keepAlive">${gv_testwhileidle}</stringProp>
+        <stringProp name="password">${gv_p}</stringProp>
+        <stringProp name="poolMax">${gv_threads}</stringProp>
+        <stringProp name="timeout">10000</stringProp>
+        <stringProp name="transactionIsolation">DEFAULT</stringProp>
+        <stringProp name="trimInterval">60000</stringProp>
+        <stringProp name="username">${gv_u}</stringProp>
+        <stringProp name="initQuery">${gv_initsqlstatement}</stringProp>
+        <stringProp name="connectionProperties">defaultRowPrefetch=2000</stringProp>
+        <boolProp name="preinit">false</boolProp>
+      </JDBCDataSource>
+      <hashTree/>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <Summariser guiclass="SummariserGui" testclass="Summariser" testname="Generate Summary Results" enabled="true"/>
+      <hashTree/>
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="setUp Thread Group" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">stoptest</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">0</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </SetupThreadGroup>
+      <hashTree>
+        <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="JSR223 Assertion: check required paramters are set" enabled="true">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">System.out.println(&quot;INFO: jmeter test run &quot; + vars.get(&quot;gv_testid&quot;))
+File dir = new File(vars.get(&quot;gv_sqldir&quot;))         
+
+if (vars.get(&quot;gv_sqldir&quot;) == &quot;&quot; || vars.get(&quot;gv_c&quot;) == &quot;&quot; || vars.get(&quot;gv_u&quot;) == &quot;&quot; || vars.get(&quot;gv_p&quot;) == &quot;&quot; || !dir.exists()){
+	String errorMsg = &quot;One or more required (sql directory, password, username, connection string) paramteres are missing&quot;
+	log.error(errorMsg)
+	AssertionResult.setFailure(true)	
+	System.err.println(&quot;ERROR: &quot; + errorMsg)
+}else{
+	String successMsg = &quot;INFO: Test initialized with all required parameters&quot;
+	log.info(successMsg)
+	System.out.println(successMsg)	
+}
+
+SampleResult.setIgnore()
+</stringProp>
+        </JSR223Assertion>
+        <hashTree/>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler: get sql text from files" enabled="true">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">import groovy.io.FileType
+
+def sqldir = vars.get(&quot;gv_sqldir&quot;)
+def list = []
+def dir = new File(sqldir)
+
+dir.eachFileRecurse (FileType.FILES) {file -&gt;
+   if(file.name.endsWith(&apos;.sql&apos;)) {
+   list &lt;&lt; file
+   }
+}
+list.sort()
+
+// save as file map
+def file_map = [:]
+for(File child:list){
+	file_map[child.getName()]=child.text
+}
+
+// run into error if there are no sql files in directory
+if(file_map.size() != 0){
+	props.put(&quot;p_file_map&quot;,file_map)
+	String successMsg = &quot;INFO: SQL text fetched successfully from all sql files in directory&quot;
+	log.info(successMsg)
+	System.out.println(successMsg)
+}else{
+	String errorMsg = &quot;ERROR: No SQL files found in given directory&quot;
+	log.error(errorMsg)
+	System.err.println(errorMsg)
+	ctx.getEngine().askThreadsToStop()
+}
+
+SampleResult.setIgnore()
+</stringProp>
+        </JSR223Sampler>
+        <hashTree/>
+        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller: if fullrun is true" enabled="true">
+          <stringProp name="IfController.condition">${gv_fullrun}</stringProp>
+          <boolProp name="IfController.evaluateAll">false</boolProp>
+          <boolProp name="IfController.useExpression">true</boolProp>
+        </IfController>
+        <hashTree>
+          <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="JDBC Request: preinitialize connection pool" enabled="true">
+            <stringProp name="dataSource">connectionpool</stringProp>
+            <stringProp name="query">select now();</stringProp>
+            <stringProp name="queryArguments"></stringProp>
+            <stringProp name="queryArgumentsTypes"></stringProp>
+            <stringProp name="queryTimeout"></stringProp>
+            <stringProp name="queryType">Select Statement</stringProp>
+            <stringProp name="resultVariable"></stringProp>
+            <stringProp name="variableNames"></stringProp>
+            <stringProp name="resultSetHandler">Count Records</stringProp>
+            <stringProp name="resultSetMaxRows"></stringProp>
+          </JDBCSampler>
+          <hashTree>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor: IgnorePreviousRequestForResults" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">if (!prev.isSuccessful()) {
+	String errorMsg = prev.getResponseDataAsString()
+	System.err.println(&quot;ERROR:&quot; + errorMsg)
+	log.error(errorMsg)
+}else{
+
+	String successMsg = &quot;INFO: Connection pool preinitialized&quot;
+	log.info(successMsg)
+	System.out.println(successMsg)
+	
+	}
+prev.setIgnore()</stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group: run concurrent threads" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">${gv_loops}</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${gv_threads}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">0</stringProp>
+        <longProp name="ThreadGroup.start_time">1401709433000</longProp>
+        <longProp name="ThreadGroup.end_time">1401709433000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler: Execution sequence " enabled="true">
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="script">def fileMapKeySet = new ArrayList(props.get(&quot;p_file_map&quot;).keySet())
+if (Boolean.valueOf(vars.get(&quot;gv_random&quot;))){
+	if (vars.getIteration()==1) {
+		vars.putObject(&quot;lv_randomizer&quot;,new Random(Integer.valueOf(vars.get(&quot;gv_seed&quot;))+ctx.getThreadNum()))
+	}
+	Collections.shuffle(fileMapKeySet, vars.getObject(&quot;lv_randomizer&quot;))
+}
+vars.putObject(&quot;lv_file_map_key_set&quot;,fileMapKeySet)
+SampleResult.setIgnore()
+</stringProp>
+          <stringProp name="scriptLanguage">groovy</stringProp>
+        </JSR223Sampler>
+        <hashTree/>
+        <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="LC" enabled="true">
+          <boolProp name="LoopController.continue_forever">true</boolProp>
+          <stringProp name="LoopController.loops">${__groovy(props.get(&quot;p_file_map&quot;).size())}</stringProp>
+        </LoopController>
+        <hashTree>
+          <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler: Selecting sql to execute" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">def idx = Integer.valueOf(vars.get(&quot;__jm__LC__idx&quot;))
+
+def thread = ctx.getThreadNum()+1
+def loop = vars.getIteration()
+def position = idx+1
+def file = vars.getObject(&quot;lv_file_map_key_set&quot;).get(idx)
+def sql = props.get(&quot;p_file_map&quot;)[file]
+
+vars.put(&quot;lv_file&quot;, file)
+vars.put(&quot;lv_comment&quot;, &quot;&quot;
+	+ &quot;-- thread: &quot; + thread.toString().padLeft(3)
+	+ &quot; / loop: &quot; + loop.toString().padLeft(3)
+	+ &quot; / position: &quot; + position.toString().padLeft(3)
+	+ &quot; / file: &quot; + file)
+vars.put(&quot;lv_sql&quot;, sql)
+
+SampleResult.setIgnore()</stringProp>
+          </JSR223Sampler>
+          <hashTree/>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller: if fullrun is true" enabled="true">
+            <stringProp name="IfController.condition">${gv_fullrun}</stringProp>
+            <boolProp name="IfController.evaluateAll">false</boolProp>
+            <boolProp name="IfController.useExpression">true</boolProp>
+          </IfController>
+          <hashTree>
+            <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="${lv_file}" enabled="true">
+              <stringProp name="dataSource">connectionpool</stringProp>
+              <stringProp name="queryType">Select Statement</stringProp>
+              <stringProp name="query">${lv_comment} -- 
+${lv_sql}</stringProp>
+              <stringProp name="queryArguments"></stringProp>
+              <stringProp name="queryArgumentsTypes"></stringProp>
+              <stringProp name="variableNames"></stringProp>
+              <stringProp name="resultVariable"></stringProp>
+              <stringProp name="queryTimeout"></stringProp>
+              <stringProp name="resultSetHandler">Count Records</stringProp>
+              <stringProp name="resultSetMaxRows"></stringProp>
+            </JDBCSampler>
+            <hashTree/>
+          </hashTree>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller: if debug is true or fullrun is false" enabled="true">
+            <stringProp name="IfController.condition">${__groovy(vars.get(&quot;gv_fullrun&quot;)==&quot;False&quot; || vars.get(&quot;gv_debug&quot;)==&quot;True&quot;)}</stringProp>
+            <boolProp name="IfController.evaluateAll">true</boolProp>
+            <boolProp name="IfController.useExpression">true</boolProp>
+          </IfController>
+          <hashTree>
+            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="${lv_file}" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">if( vars.get(&quot;gv_debug&quot;) == &quot;True&quot;){
+	if( vars.get(&quot;gv_fullrun&quot;) == &quot;False&quot;  ){
+		log.info(&quot;\n&quot; + vars.get(&quot;lv_comment&quot;) + &quot;\n&quot; + vars.get(&quot;lv_sql&quot;))
+	}
+	else{
+		SampleResult.setIgnore()
+	}
+}else{
+	SampleResult.setIgnore()
+}
+
+</stringProp>
+            </JSR223Sampler>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+      </hashTree>
+      <ResultCollector guiclass="SimpleDataWriter" testclass="ResultCollector" testname="Simple Data Writer" enabled="false">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename">${gv_testid}.jtl</stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <TestFragmentController guiclass="TestFragmentControllerGui" testclass="TestFragmentController" testname="Test Fragment" enabled="false"/>
+      <hashTree>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Groovy: code fragments" enabled="false">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">/*
+	log.info(props.get(&quot;p_file_map&quot;).toString())
+	log.info(props.get(&quot;p_file_map&quot;).entrySet().toString())
+	log.info(props.get(&quot;p_file_map&quot;).keySet().toString())
+	log.info(props.get(&quot;p_file_map&quot;).values().toString())
+	log.info(vars.get(&quot;gv_seed&quot;))
+	log.info(ctx.getThreadNum().toString())
+	log.info(vars.getIteration().toString())
+	log.info(&apos;x&apos;)
+	log.info(vars.getThreadName())
+	log.info(&apos;size&apos;)
+	log.info(props.get(&quot;p_file_map&quot;).size().toString())
+	log.info(vars.getIteration().toString())
+*/
+
+/*if (ctx.getThreadNum()==0) {
+	def key = vars.getObject(&quot;lv_file_map_key_set&quot;).get(Integer.valueOf(vars.get(&quot;__jm__LC__idx&quot;)))
+	log.info(key)
+}
+*/
+
+/*log.info(vars.get[&quot;lv_execorder_1&quot;])
+log.info(vars.get[&quot;lv_execfilename&quot;])
+log.info(props.get(&quot;p_file_map&quot;)[vars.get[&quot;lv_execfilename&quot;]])
+*/
+//log.info(&quot;inner&quot;)
+//log.info(vars.get(&quot;__jm__LC__idx&quot;))
+//def value = props.get(&quot;p_file_map&quot;)[key]
+//log.info(value)</stringProp>
+        </JSR223Sampler>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
