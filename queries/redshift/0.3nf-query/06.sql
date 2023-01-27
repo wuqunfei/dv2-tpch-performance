@@ -1,0 +1,8 @@
+/* TPC_H  Query 6 - Forecasting Revenue Change */
+SELECT	SUM(L_EXTENDEDPRICE*L_DISCOUNT)	AS REVENUE
+FROM	LINEITEM
+WHERE	L_SHIPDATE	>= '1994-01-01' AND
+	L_SHIPDATE	< cast (date '1994-01-01' + interval '1 year' as date)	 AND
+	L_DISCOUNT	BETWEEN 0.09 - 0.01 AND 0.09 + 0.01 AND
+	L_QUANTITY	< 24
+;
