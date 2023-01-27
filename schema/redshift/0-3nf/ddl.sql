@@ -1,119 +1,112 @@
-create table customer
-(
-    c_custkey    int8           not null,
-    c_name       varchar(25)    not null,
-    c_address    varchar(40)    not null,
-    c_nationkey  int4           not null,
-    c_phone      char(15)       not null,
-    c_acctbal    numeric(12, 2) not null,
-    c_mktsegment char(10)       not null,
-    c_comment    varchar(117)   not null,
-    Primary Key (C_CUSTKEY)
-) distkey(c_custkey) sortkey(c_custkey);
+CREATE SCHEMA TPCH3NF;
+SET SEARCH_PATH TO TPCH3NF;
 
-create table lineitem
+CREATE TABLE CUSTOMER
 (
-    l_orderkey      int8           not null,
-    l_partkey       int8           not null,
-    l_suppkey       int4           not null,
-    l_linenumber    int4           not null,
-    l_quantity      numeric(12, 2) not null,
-    l_extendedprice numeric(12, 2) not null,
-    l_discount      numeric(12, 2) not null,
-    l_tax           numeric(12, 2) not null,
-    l_returnflag    char(1)        not null,
-    l_linestatus    char(1)        not null,
-    l_shipdate      date           not null,
-    l_commitdate    date           not null,
-    l_receiptdate   date           not null,
-    l_shipinstruct  char(25)       not null,
-    l_shipmode      char(10)       not null,
-    l_comment       varchar(44)    not null,
-    Primary Key (L_ORDERKEY, L_LINENUMBER)
-) distkey(l_orderkey) sortkey(l_shipdate,l_orderkey);
+    C_CUSTKEY    INT8           NOT NULL,
+    C_NAME       VARCHAR(25)    NOT NULL,
+    C_ADDRESS    VARCHAR(40)    NOT NULL,
+    C_NATIONKEY  INT4           NOT NULL,
+    C_PHONE      CHAR(15)       NOT NULL,
+    C_ACCTBAL    NUMERIC(12, 2) NOT NULL,
+    C_MKTSEGMENT CHAR(10)       NOT NULL,
+    C_COMMENT    VARCHAR(117)   NOT NULL,
+    PRIMARY KEY (C_CUSTKEY)
+) DISTKEY (C_CUSTKEY)
+  SORTKEY (C_CUSTKEY);
 
-create table nation
+CREATE TABLE LINEITEM
 (
-    n_nationkey int4         not null,
-    n_name      char(25)     not null,
-    n_regionkey int4         not null,
-    n_comment   varchar(152) not null,
-    Primary Key (N_NATIONKEY)
-) distkey(n_nationkey) sortkey(n_nationkey);
+    L_ORDERKEY      INT8           NOT NULL,
+    L_PARTKEY       INT8           NOT NULL,
+    L_SUPPKEY       INT4           NOT NULL,
+    L_LINENUMBER    INT4           NOT NULL,
+    L_QUANTITY      NUMERIC(12, 2) NOT NULL,
+    L_EXTENDEDPRICE NUMERIC(12, 2) NOT NULL,
+    L_DISCOUNT      NUMERIC(12, 2) NOT NULL,
+    L_TAX           NUMERIC(12, 2) NOT NULL,
+    L_RETURNFLAG    CHAR(1)        NOT NULL,
+    L_LINESTATUS    CHAR(1)        NOT NULL,
+    L_SHIPDATE      DATE           NOT NULL,
+    L_COMMITDATE    DATE           NOT NULL,
+    L_RECEIPTDATE   DATE           NOT NULL,
+    L_SHIPINSTRUCT  CHAR(25)       NOT NULL,
+    L_SHIPMODE      CHAR(10)       NOT NULL,
+    L_COMMENT       VARCHAR(44)    NOT NULL,
+    PRIMARY KEY (L_ORDERKEY, L_LINENUMBER)
+) DISTKEY (L_ORDERKEY)
+  SORTKEY (L_SHIPDATE,L_ORDERKEY);
 
-create table orders
+CREATE TABLE NATION
 (
-    o_orderkey      int8           not null,
-    o_custkey       int8           not null,
-    o_orderstatus   char(1)        not null,
-    o_totalprice    numeric(12, 2) not null,
-    o_orderdate     date           not null,
-    o_orderpriority char(15)       not null,
-    o_clerk         char(15)       not null,
-    o_shippriority  int4           not null,
-    o_comment       varchar(79)    not null,
-    Primary Key (O_ORDERKEY)
-) distkey(o_orderkey) sortkey(o_orderdate, o_orderkey);
+    N_NATIONKEY INT4         NOT NULL,
+    N_NAME      CHAR(25)     NOT NULL,
+    N_REGIONKEY INT4         NOT NULL,
+    N_COMMENT   VARCHAR(152) NOT NULL,
+    PRIMARY KEY (N_NATIONKEY)
+) DISTSTYLE ALL
+  SORTKEY (N_NATIONKEY);
 
-create table part
+CREATE TABLE ORDERS
 (
-    p_partkey     int8           not null,
-    p_name        varchar(55)    not null,
-    p_mfgr        char(25)       not null,
-    p_brand       char(10)       not null,
-    p_type        varchar(25)    not null,
-    p_size        int4           not null,
-    p_container   char(10)       not null,
-    p_retailprice numeric(12, 2) not null,
-    p_comment     varchar(23)    not null,
+    O_ORDERKEY      INT8           NOT NULL,
+    O_CUSTKEY       INT8           NOT NULL,
+    O_ORDERSTATUS   CHAR(1)        NOT NULL,
+    O_TOTALPRICE    NUMERIC(12, 2) NOT NULL,
+    O_ORDERDATE     DATE           NOT NULL,
+    O_ORDERPRIORITY CHAR(15)       NOT NULL,
+    O_CLERK         CHAR(15)       NOT NULL,
+    O_SHIPPRIORITY  INT4           NOT NULL,
+    O_COMMENT       VARCHAR(79)    NOT NULL,
+    PRIMARY KEY (O_ORDERKEY)
+) DISTKEY (O_ORDERKEY)
+  SORTKEY (O_ORDERDATE, O_ORDERKEY);
+
+CREATE TABLE PART
+(
+    P_PARTKEY     INT8           NOT NULL,
+    P_NAME        VARCHAR(55)    NOT NULL,
+    P_MFGR        CHAR(25)       NOT NULL,
+    P_BRAND       CHAR(10)       NOT NULL,
+    P_TYPE        VARCHAR(25)    NOT NULL,
+    P_SIZE        INT4           NOT NULL,
+    P_CONTAINER   CHAR(10)       NOT NULL,
+    P_RETAILPRICE NUMERIC(12, 2) NOT NULL,
+    P_COMMENT     VARCHAR(23)    NOT NULL,
     PRIMARY KEY (P_PARTKEY)
-) distkey(p_partkey) sortkey(p_partkey);
+) DISTKEY (P_PARTKEY)
+  SORTKEY (P_PARTKEY);
 
-create table partsupp
+CREATE TABLE PARTSUPP
 (
-    ps_partkey    int8           not null,
-    ps_suppkey    int4           not null,
-    ps_availqty   int4           not null,
-    ps_supplycost numeric(12, 2) not null,
-    ps_comment    varchar(199)   not null,
-    Primary Key (PS_PARTKEY, PS_SUPPKEY)
-) distkey(ps_partkey) sortkey(ps_partkey);
+    PS_PARTKEY    INT8           NOT NULL,
+    PS_SUPPKEY    INT4           NOT NULL,
+    PS_AVAILQTY   INT4           NOT NULL,
+    PS_SUPPLYCOST NUMERIC(12, 2) NOT NULL,
+    PS_COMMENT    VARCHAR(199)   NOT NULL,
+    PRIMARY KEY (PS_PARTKEY, PS_SUPPKEY)
+) DISTKEY (PS_PARTKEY)
+  SORTKEY (PS_PARTKEY);
 
-create table region
+CREATE TABLE REGION
 (
-    r_regionkey int4         not null,
-    r_name      char(25)     not null,
-    r_comment   varchar(152) not null,
-    Primary Key (R_REGIONKEY)
-) distkey(r_regionkey) sortkey(r_regionkey);
+    R_REGIONKEY INT4         NOT NULL,
+    R_NAME      CHAR(25)     NOT NULL,
+    R_COMMENT   VARCHAR(152) NOT NULL,
+    PRIMARY KEY (R_REGIONKEY)
+) DISTSTYLE ALL
+  SORTKEY (R_REGIONKEY);
 
-create table supplier
+CREATE TABLE SUPPLIER
 (
-    s_suppkey   int4           not null,
-    s_name      char(25)       not null,
-    s_address   varchar(40)    not null,
-    s_nationkey int4           not null,
-    s_phone     char(15)       not null,
-    s_acctbal   numeric(12, 2) not null,
-    s_comment   varchar(101)   not null,
-    Primary Key (S_SUPPKEY)
-) distkey(s_suppkey) sortkey(s_suppkey)
+    S_SUPPKEY   INT4           NOT NULL,
+    S_NAME      CHAR(25)       NOT NULL,
+    S_ADDRESS   VARCHAR(40)    NOT NULL,
+    S_NATIONKEY INT4           NOT NULL,
+    S_PHONE     CHAR(15)       NOT NULL,
+    S_ACCTBAL   NUMERIC(12, 2) NOT NULL,
+    S_COMMENT   VARCHAR(101)   NOT NULL,
+    PRIMARY KEY (S_SUPPKEY)
+) DISTKEY (S_SUPPKEY)
+  SORTKEY (S_SUPPKEY)
 ;
-
-/*
-Text files needed to load test data under s3://redshift-downloads/TPC-H/3TB are publicly available. Any valid credentials can be used to access the files.
-
-To load the sample data, you must provide authentication for your cluster to access Amazon S3 on your behalf.
-
-You can provide authentication by referencing an IAM role that you have created. You can set an IAM_Role as the default for your cluster or you can directly provide the ARN of an IAM_Role.  
-For more information https://docs.aws.amazon.com/redshift/latest/mgmt/authorizing-redshift-service.html
-
-The COPY commands include a placeholder for IAM_Role, in this code IAM_Role clause is set to use the default IAM_Role. If your cluster does not have a IAM_Role set as default then please follow the instructions provided here:
-
-https://docs.aws.amazon.com/redshift/latest/mgmt/default-iam-role.html
-
-For more information check samples in https://docs.aws.amazon.com/redshift/latest/gsg/rs-gsg-create-sample-db.html
-
-**Note** another option to provide IAM_Role is to provide IAM_Role ARN in IAM_Role clause. For example
-copy region from's3://redshift-downloads/TPC-H/3TB/region/' IAM_Role 'Replace text inside the quotes with Redshift cluster IAM_Role ARN' gzip delimiter '|';
-*/
