@@ -28,17 +28,24 @@ Schema definition is under /schema/database/steps folder
 - 2-business-vault is the business layer with Point of Time Table, Bridge, Reference Tables DDL
 - 3-Information-vault is the information vault(Data Mart) layer
 
-## 3. Different patterns in information Layer for consumptions 
+## 3. Different patterns in information Vault for consumptions 
 1. virtual table
 ```sql
+create view my_view as 
+    select * from my_table;
 
 ```
 2. materialized  table
 ```sql
-
+create materialized view my_m_view 
+    backup no 
+    auto refersh YES
+    as select * from my_table
 ```
 3. Physical table
 ```sql
+create table my_dm();
+insert my_dm select * from bridge_table left join satellite_table;
 
 ```
 
