@@ -1,32 +1,36 @@
-# Data Vault 2.0 Performance Test with TPC-H
-Performance Test on Data Vault 2.0 with TCP-H
+# Data Vault 2.0 Performance Test Data Generation
+Create Data with TPCH tool
 
-## 1. Configure TPCH-TOOL
+## 1. Configure TPCH-TOOL, configure the parameter for different database
 ```shell
 # Build TPC-H Tool
 # Down load from https://www.tpc.org/tpch/
 mkdir /opt/db/tpch-tool
-# Save the TCPH Tool zip to /opt/db/tpch-tool directory as tpc-h-tool_2_17_0.zip
-unzip tpc-h-tool_2_17_0.zip
-cd tpch_2_17_0/dbgen
+# Save the TCPH Tool zip to /opt/db/tpch-tool directory as tpc-h-tool.zip
+unzip tpc-h-tool.zip
+cd tpch-h-tool/dbgen
 cp makefile.suite Makefile
-# Update the Makefile with the lines below
+# Update the Makefile with the lines below, Oracle is also used for Postgresql, Aurora, Redshift
 CC=gcc
 DATABASE=ORACLE
 MACHINE=LINUX
 WORKLOAD=TPCH
-# Fix bug 
+# Fix bug with in configuration 
 echo "#define EOL_HANDLING 1" >> config.h # remove the tail '|'
 make
 ```
+after make done, It will create a dbgen folder and dbgen cmd inside. 
 
-# 2. Generate Data
+# 2. Generate Data By Scale
+ - ./dbgen help 
+ - parameters scale: -S example 1 = 1GB, 1000 = 1TB 
+ - parameters files: -C example -C 10 -S 1, create 10 files for 1 GB 
 
+A Shell make different big files in different chunks, Please put some sleep of your computer memory limitation.
 ```shell
 VOLUME_SIZE=1000
 CHUNKS=100
-#for table_name in "lineitem" "orders" "partsupp" "part" "customer" "supplier"
-for table_name in "partsupp" "orders" "lineitem"
+for table_name in "lineitem" "orders" "partsupp" "part" "customer" "supplier" 
 do
   for((step=1;step<=$CHUNKS;step++));
     do
@@ -61,17 +65,3 @@ echo "ALL Generated!!! $(date +%F_%H%M)"
 # killall -r dbgen
 # nohup ./data.gen.sh > T10generation.log 2>&1 &
 ```
-
-# 3. Test Query
-```shell
-jmeter  -n \
-        -p redshift.conf/redshift.properties \
-        -t loadrunner.jmx \
-        -l ../reports/jmeter-redshift-$(date +%F_%H%M)-10T.csv \
-        -j ../logs/jmeter-redshift-$(date +%F_%H%M).log
-        
-# output in tpc-output folder
-# logs, reports with csv
-```
-
-# 4. Validate Query
