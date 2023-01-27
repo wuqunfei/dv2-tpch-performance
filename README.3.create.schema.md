@@ -1,4 +1,4 @@
-# Create schema 
+# Create data schemas in different stages
 
 ## 1. check connection between your device to database
 install pgsql client/service on EC2 or Mac, for example
