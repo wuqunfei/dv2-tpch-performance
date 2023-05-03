@@ -22,7 +22,7 @@ make
 after make done, It will create a dbgen folder and dbgen cmd inside. 
 
 # 2. Generate Data By Scale
- - ./dbgen help 
+ - ./dbgen --help 
  - parameters scale: -S example 1 = 1GB, 1000 = 1TB 
  - parameters files: -C example -C 10 -S 1, create 10 files for 1 GB 
 
