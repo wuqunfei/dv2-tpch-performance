@@ -1,5 +1,7 @@
 jmeter  -n \
-        -p redshift.conf/redshift.loading.0.properties \
+        -p hydra.conf/hydra.properties \
         -t loadrunner.jmx \
-        -l ../reports/jmeter-redshift-dv2-$(date +%F_%H%M)-10T.csv \
-        -j ../logs/jmeter-redshift-dv2-$(date +%F_%H%M).log
+        -l ../reports/jmeter-hydyra-$(date +%F_%H%M)-1T.csv \
+        -j ../logs/jmeter-hydra-$(date +%F_%H%M)-1T.log
+
+
